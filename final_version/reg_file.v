@@ -1,10 +1,11 @@
 module reg_file
-   #(
+    #(
     parameter DATA_WIDTH = 8, // number of bits
               ADDR_WIDTH = 2  // number of address bits
    )
    (
     input clk,
+    input reset,
     input wr_en,
     input [ADDR_WIDTH-1:0] w_addr,
     input [ADDR_WIDTH-1:0] r_addr,
@@ -17,9 +18,16 @@ module reg_file
 
    // body
    // write operation
-   always @(posedge clk)
-      if (wr_en)
+   integer i;
+   always @(posedge clk,posedge reset)
+      if(reset) begin
+         for(i=0 ; i<(2**ADDR_WIDTH);i=i+1 )
+            array_reg[i] = 8'h00;
+            end
+      else begin
+       if(wr_en)
          array_reg[w_addr] <= w_data;
+         end
 
    // read operation
    assign r_data = array_reg[r_addr];

@@ -29,46 +29,58 @@ end
 */
 
 always @(*) begin
-    case(ADDRESS >> 2)  
-        /*
-        32'h0000_0000 : (* KEEP = "true" *)INSTRUCTION = 32'h01a00113;
-        32'h0000_0001 : (* KEEP = "true" *)INSTRUCTION = 32'h04100413;
-        32'h0000_0002 : (* KEEP = "true" *)INSTRUCTION = 32'h502020a3;
-        32'h0000_0003 : (* KEEP = "true" *)INSTRUCTION = 32'h50002083;
-        32'h0000_0004 : (* KEEP = "true" *)INSTRUCTION = 32'h2000f193;
-        32'h0000_0005 : (* KEEP = "true" *)INSTRUCTION = 32'h1000f313;
-        32'h0000_0006 : (* KEEP = "true" *)INSTRUCTION = 32'h20000213;
-        32'h0000_0007 : (* KEEP = "true" *)INSTRUCTION = 32'h10000293;
-        32'h0000_0008 : (* KEEP = "true" *)INSTRUCTION = 32'hfe4180e3;
-        32'h0000_0009 : (* KEEP = "true" *)INSTRUCTION = 32'h50802123;
-        32'h0000_000a : (* KEEP = "true" *)INSTRUCTION = 32'h00140413;
-        32'h0000_000b : (* KEEP = "true" *)INSTRUCTION = 32'hfe0000e3;
-        */
+    case(ADDRESS >> 2)
         
-        32'h0000_0000 : (* KEEP = "true" *)INSTRUCTION = 32'h02600093;
+        32'h0000_0000 : (* KEEP = "true" *)INSTRUCTION = 32'h01a00093;
         32'h0000_0001 : (* KEEP = "true" *)INSTRUCTION = 32'h501020a3;
-        32'h0000_0002 : (* KEEP = "true" *)INSTRUCTION = 32'h50002183;
-        32'h0000_0003 : (* KEEP = "true" *)INSTRUCTION = 32'h1001f213;
-        32'h0000_0004 : (* KEEP = "true" *)INSTRUCTION = 32'h10000093;
-        32'h0000_0005 : (* KEEP = "true" *)INSTRUCTION = 32'hfe120ae3;
-        32'h0000_0006 : (* KEEP = "true" *)INSTRUCTION = 32'h501021a3;
-        32'h0000_0007 : (* KEEP = "true" *)INSTRUCTION = 32'h50002283;
+        32'h0000_0002 : (* KEEP = "true" *)INSTRUCTION = 32'h00500593;
+        32'h0000_0003 : (* KEEP = "true" *)INSTRUCTION = 32'h50002383;
+        32'h0000_0004 : (* KEEP = "true" *)INSTRUCTION = 32'h2003f413;
+        32'h0000_0005 : (* KEEP = "true" *)INSTRUCTION = 32'h20000493;
+        32'h0000_0006 : (* KEEP = "true" *)INSTRUCTION = 32'hfe940ae3;
+        32'h0000_0007 : (* KEEP = "true" *)INSTRUCTION = 32'h50b02123;
+        32'h0000_0008 : (* KEEP = "true" *)INSTRUCTION = 32'h00158593;
+        32'h0000_0009 : (* KEEP = "true" *)INSTRUCTION = 32'h50002103;
+        32'h0000_000a : (* KEEP = "true" *)INSTRUCTION = 32'h10017193;
+        32'h0000_000b : (* KEEP = "true" *)INSTRUCTION = 32'h10000213;
+        32'h0000_000c : (* KEEP = "true" *)INSTRUCTION = 32'hfe418ae3;
+        32'h0000_000d : (* KEEP = "true" *)INSTRUCTION = 32'h50002283;
+        32'h0000_000e : (* KEEP = "true" *)INSTRUCTION = 32'h0ff2f313;
+        32'h0000_000f : (* KEEP = "true" *)INSTRUCTION = 32'h50002103;
+        32'h0000_0010 : (* KEEP = "true" *)INSTRUCTION = 32'h10017193;
+        32'h0000_0011 : (* KEEP = "true" *)INSTRUCTION = 32'h10000213;
+        32'h0000_0012 : (* KEEP = "true" *)INSTRUCTION = 32'hfe418ae3;
+        32'h0000_0013 : (* KEEP = "true" *)INSTRUCTION = 32'h503021a3;
+        32'h0000_0014 : (* KEEP = "true" *)INSTRUCTION = 32'hfa000ee3;
+    
+    
+    
         /*
-        32'h0000_0008 : (* KEEP = "true" *)INSTRUCTION = 32'h0ff2f313;
-        32'h0000_0009 : (* KEEP = "true" *)INSTRUCTION = 32'h50002383;
-        32'h0000_000a : (* KEEP = "true" *)INSTRUCTION = 32'h0ff3f413;
-        32'h0000_000b : (* KEEP = "true" *)INSTRUCTION = 32'h20000093;
-        32'h0000_000c : (* KEEP = "true" *)INSTRUCTION = 32'hfe140ae3;
-        32'h0000_000d : (* KEEP = "true" *)INSTRUCTION = 32'h50602123;
-        32'h0000_000e : (* KEEP = "true" *)INSTRUCTION = 32'hfc0008e3;
+        //SW -> -> SW -> SW
+        32'h0000_0000 : (* KEEP = "true" *)INSTRUCTION = 32'h01a00093;
+        32'h0000_0001 : (* KEEP = "true" *)INSTRUCTION = 32'h501020a3;
+        32'h0000_0002 : (* KEEP = "true" *)INSTRUCTION = 32'h00500293;
+        32'h0000_0003 : (* KEEP = "true" *)INSTRUCTION = 32'h50002103;
+        32'h0000_0004 : (* KEEP = "true" *)INSTRUCTION = 32'h20017193;
+        32'h0000_0005 : (* KEEP = "true" *)INSTRUCTION = 32'h20000213;
+        32'h0000_0006 : (* KEEP = "true" *)INSTRUCTION = 32'hfe418ae3;
+        32'h0000_0007 : (* KEEP = "true" *)INSTRUCTION = 32'h50502123;
+        32'h0000_0008 : (* KEEP = "true" *)INSTRUCTION = 32'h00128293;
+        32'h0000_0009 : (* KEEP = "true" *)INSTRUCTION = 32'hfe0004e3 ;
         */
-    /*
-    32'h0000_0000 : (* KEEP = "true" *)INSTRUCTION = 32'h01a00113;
-    32'h0000_0001 : (* KEEP = "true" *)INSTRUCTION = 32'h00a00413;
-    32'h0000_0002 : (* KEEP = "true" *)INSTRUCTION = 32'h502020a3;
-    32'h0000_0003 : (* KEEP = "true" *)INSTRUCTION = 32'h50802123;
-    32'h0000_0004 : (* KEEP = "true" *)INSTRUCTION = 32'h502020a3;
-    */
+        /*
+        //LW -> LW -> LW
+        32'h0000_0000 : (* KEEP = "true" *)INSTRUCTION = 32'h01a00093;
+        32'h0000_0001 : (* KEEP = "true" *)INSTRUCTION = 32'h501020a3;
+        32'h0000_0002 : (* KEEP = "true" *)INSTRUCTION = 32'h50002103;
+        32'h0000_0003 : (* KEEP = "true" *)INSTRUCTION = 32'h10017193;
+        32'h0000_0004 : (* KEEP = "true" *)INSTRUCTION = 32'h10000213;
+        32'h0000_0005 : (* KEEP = "true" *)INSTRUCTION = 32'hfe418ae3;
+        32'h0000_0006 : (* KEEP = "true" *)INSTRUCTION = 32'h50002283;
+        32'h0000_0007 : (* KEEP = "true" *)INSTRUCTION = 32'h0ff2f313;
+        32'h0000_0008 : (* KEEP = "true" *)INSTRUCTION = 32'h503021a3;
+        32'h0000_0009 : (* KEEP = "true" *)INSTRUCTION = 32'hfe0004e3;
+        */
         default : INSTRUCTION = 32'h0000_0013;
     
     endcase

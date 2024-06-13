@@ -39,6 +39,7 @@ module fifo
    reg_file 
       #(.DATA_WIDTH(DATA_WIDTH), .ADDR_WIDTH(ADDR_WIDTH)) f_unit (
       .clk(clk),
+      .reset(reset),
       .w_data(w_data),
       .w_addr(w_addr),
       .r_addr(r_addr),

@@ -50,7 +50,7 @@ assign CS = uart_wen  | uart_ren;
 
 DATA_MEMORY ram (
 		.CLK(CLOCK),
-		.ADDRESS(ram_address),
+		.ADDRESS(ram_address[15:0]),
 		.WRITE_READ(ram_w_r_en),
 		.WRITE_DATA(ram_w_data), 
 		.READ_DATA(ram_r_data) 
@@ -65,8 +65,8 @@ chu_uart #(.FIFO_DEPTH_BIT(8) )
     .cs(CS),
     .read(uart_ren),
     .write(uart_wen),
-    .addr(ram_address[4:0]),
-    .wr_data(ram_w_data),
+    .addr(ram_address[1:0]),
+    .wr_data(ram_w_data[7:0]),
     .rd_data(uart_r_data),
     .tx(serial_out),
     .rx(serial_in)    

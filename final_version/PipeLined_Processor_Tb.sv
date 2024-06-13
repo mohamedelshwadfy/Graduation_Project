@@ -27,8 +27,9 @@ module PipeLined_Processor_TB ();
         rst =1'b1;
         
         rx_byte(8'h05);
-
-       
+        rx_byte(8'h0a);
+        rx_byte(8'h0c);
+        
         #10000;
         $stop;
     end

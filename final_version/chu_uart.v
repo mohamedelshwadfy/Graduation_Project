@@ -27,8 +27,8 @@ module chu_uart#(parameter  FIFO_DEPTH_BIT = 8)  // # addr bits of FIFO
     input  wire cs,
     input  wire read,
     input  wire write,
-    input  wire [4:0] addr,
-    input  wire [31:0] wr_data,
+    input  wire [1:0] addr,
+    input  wire [7:0] wr_data,
     output wire [31:0] rd_data,
     output wire tx,
     input  wire rx    
@@ -65,9 +65,9 @@ module chu_uart#(parameter  FIFO_DEPTH_BIT = 8)  // # addr bits of FIFO
          if (wr_dvsr)
             dvsr_reg <= wr_data[10:0];
    // decoding logic
-   assign wr_dvsr = (write && cs && (addr[1:0]==2'b01));
-   assign wr_uart = (write && cs && (addr[1:0]==2'b10));
-   assign rd_uart = (write && cs && (addr[1:0]==2'b11));
+   assign wr_dvsr = (write && cs && (addr==2'b01));
+   assign wr_uart = (write && cs && (addr==2'b10));
+   assign rd_uart = (write && cs && (addr==2'b11));
    // slot read interface
    assign rd_data = {22'h000000, tx_full,  rx_empty, r_data};
 endmodule

@@ -14,7 +14,7 @@
 				  the write opearation is synchronized with the clock and the read
 				  opearation is combinationally logic 
 */
-module DATA_MEMORY #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
+module DATA_MEMORY #(parameter DATA_WIDTH = 32,ADD_WIDTH = 16 , MEM_DEPTH = 512 )(
 		CLK,
 		ADDRESS,
 		WRITE_READ,
@@ -24,33 +24,20 @@ module DATA_MEMORY #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
 
 input                    CLK;
 input                    WRITE_READ;
-input  [ WIDTH - 1 : 0 ] ADDRESS;
-input  [ WIDTH - 1 : 0 ] WRITE_DATA;
+input  [ ADD_WIDTH - 1 : 0 ] ADDRESS;
+input  [ DATA_WIDTH - 1 : 0 ] WRITE_DATA;
 
-output [ WIDTH - 1 : 0 ] READ_DATA;
+output [ DATA_WIDTH - 1 : 0 ] READ_DATA;
 
-reg    [ WIDTH - 1 : 0 ] DATA [ 0 : MEM_DEPTH - 1];
+reg    [ DATA_WIDTH - 1 : 0 ] DATA [ 0 : MEM_DEPTH - 1];
 
 integer i;
 // the synchronuos write 
 always @(posedge CLK) begin
-/*
-	if(~RESET) // synchronus reset
-	    for(i = 0 ; i < MEM_DEPTH ; i = i + 1 )
-		  DATA[i] <= { WIDTH{1'b0} };
-
-	else begin
-	    if (WRITE_READ) // write opearation
-	        DATA[ADDRESS] <= WRITE_DATA;
-	end
-	*/
 	if (WRITE_READ) // write opearation
         DATA[ADDRESS] <= WRITE_DATA;
 end
 
 assign READ_DATA = (WRITE_READ) ? 32'h0000_0000 : DATA[ADDRESS]; // read opearation
-initial begin
-for(i = 0 ; i < MEM_DEPTH ; i = i + 1 )
-		  DATA[i] <= { WIDTH{1'b0} };
- end
+
 endmodule 

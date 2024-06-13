@@ -44,7 +44,8 @@ reg [ WIDTH - 1 : 0 ] RF [ NU_REG - 1 : 0 ]; // the 32 registers withe 32-bit wi
 integer i;
 //the synchronuous write to prevent destroing the data
     
-always @(posedge CLK) begin
+always @(posedge CLK , negedge RESET) begin
+    RF[0] <= 32'h0000_0000;
     if(~RESET)
         for(i = 0 ; i <32 ; i = i+1)
                 RF[i] <= 32'h0000_0000;
