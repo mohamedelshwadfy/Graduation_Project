@@ -4,11 +4,11 @@
    Outputs: aluControl - 3-bit control line to ALU unit 
 */
 module ALUControlUnit (
-    input  [1:0] alu_op,
-    input  [2:0] funct3,
-    input        funct7,
-    input        op,
-    output [2:0] alu_control
+   input  [1:0]  alu_op,
+   input  [2:0]  funct3,
+   input         funct7,
+   input         op,
+   output [2:0]  alu_control
 );
 
     assign alu_control = (alu_op == 2'b00) ? 3'b000 :
