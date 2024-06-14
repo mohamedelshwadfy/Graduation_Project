@@ -1,20 +1,20 @@
-// Module: CarryLookAhead4Bit
-// Description: 4-bit Carry Look-Ahead Adder
-// Inputs: a, b - 4-bit input lines; cin - Carry input
-// Outputs: sum - 4-bit sum; cout - Carry output
-
+/* Module: CarryLookAhead4Bit
+   Description: 4-bit Carry Look-Ahead Adder
+   Inputs: a, b - 4-bit input lines; cin - Carry input
+   Outputs: sum - 4-bit sum; cout - Carry output
+*/
 module CarryLookAhead4Bit (
-    input  [3:0] a,
-    input  [3:0] b,
-    input        cin,
-    output [3:0] sum,
-    output       cout
+    input  [3:0]  a,
+    input  [3:0]  b,
+    input         cin,
+    output [3:0]  sum,
+    output        cout
 );
 
     wire [3:0] p, g, c;
 
-    assign p = a ^ b;  // propagate
-    assign g = a & b;  // generate
+    assign p = a ^ b;      // propagate
+    assign g = a & b;      // generate
 
     assign c[0] = cin;
     assign c[1] = g[0] | (p[0] & c[0]);
