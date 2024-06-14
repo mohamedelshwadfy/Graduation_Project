@@ -1,18 +1,11 @@
 /*
-	module name : DATA_MEMORY
-	module inputs : 
-				- CLK : the global clock of the system
-				- RESET : the global reset of the system
-				- ADDRESS : 32-bit address line 
-				- WRITE_READ : control signal to read or write enable
-				- WRITE_DATA : 32-bit data pass 
-				
-	module outputs :
-				- READ_DATA : 32-bit data pass
-	module function : 
-				- it is a RAM . it have control signal to allowing write or read from it 
-				  the write opearation is synchronized with the clock and the read
-				  opearation is combinationally logic 
+	module : DATA_MEMORY
+        inputs : CLK : the global clock of the system , RESET : the global reset of the system , ADDRESS : 32-bit address line 
+		 WRITE_READ : control signal to read or write enable , WRITE_DATA : 32-bit data pass 
+	outputs : READ_DATA : 32-bit data pass
+	module function :  it is a RAM . it have control signal to allowing write or read from it 
+			   the write opearation is synchronized with the clock and the read
+		           opearation is combinationally logic 
 */
 module DATA_MEMORY #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
 		CLK,
