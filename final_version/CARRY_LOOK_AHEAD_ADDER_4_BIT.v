@@ -1,21 +1,27 @@
-module carry_look_ahead_4bit(a,b, cin, sum,cout);
-input [3:0] a,b;
-input cin;
-output [3:0] sum;
-output cout;
+// Module: CarryLookAhead4Bit
+// Description: 4-bit Carry Look-Ahead Adder
+// Inputs: a, b - 4-bit input lines; cin - Carry input
+// Outputs: sum - 4-bit sum; cout - Carry output
 
-wire [3:0] p,g,c;
+module CarryLookAhead4Bit (
+    input  [3:0] a,
+    input  [3:0] b,
+    input        cin,
+    output [3:0] sum,
+    output       cout
+);
 
-assign p=a^b;//propagate
-assign g=a&b; //generate
+    wire [3:0] p, g, c;
 
-//carry=gi + Pi.ci
+    assign p = a ^ b;  // propagate
+    assign g = a & b;  // generate
 
-assign c[0]=cin;
-assign c[1]= g[0]|(p[0]&c[0]);
-assign c[2]= g[1] | (p[1]&g[0]) | p[1]&p[0]&c[0];
-assign c[3]= g[2] | (p[2]&g[1]) | p[2]&p[1]&g[0] | p[2]&p[1]&p[0]&c[0];
-assign cout= g[3] | (p[3]&g[2]) | p[3]&p[2]&g[1] | p[3]&p[2]&p[1]&g[0] | p[3]&p[2]&p[1]&p[0]&c[0];
-assign sum=p^c;
+    assign c[0] = cin;
+    assign c[1] = g[0] | (p[0] & c[0]);
+    assign c[2] = g[1] | (p[1] & g[0]) | (p[1] & p[0] & c[0]);
+    assign c[3] = g[2] | (p[2] & g[1]) | (p[2] & p[1] & g[0]) | (p[2] & p[1] & p[0] & c[0]);
+    assign cout = g[3] | (p[3] & g[2]) | (p[3] & p[2] & g[1]) | (p[3] & p[2] & p[1] & g[0]) | (p[3] & p[2] & p[1] & p[0] & c[0]);
+    assign sum = p ^ c;
 
 endmodule
+
