@@ -42,8 +42,7 @@ always @(posedge clk) begin
 	if (write_read)                                                       // write opearation
 		DATA[address] <= write_data;
 end
-
-	assign read_data = (write_read) ? 32'h0000_0000 : DATA[address];     // read opearation
+assign read_data = (write_read) ? 32'h0000_0000 : DATA[address];              // read opearation
 
 initial begin
 for(i = 0 ; i < MEM_DEPTH ; i = i + 1 )
