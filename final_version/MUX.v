@@ -7,9 +7,9 @@ module MUX #(parameter WIDTH = 32) (
     input  select,
     input  [WIDTH - 1 : 0] A,
     input  [WIDTH - 1 : 0] B,
-    output [WIDTH - 1 : 0] OUT
+    output [WIDTH - 1 : 0] out
 );
 
-assign OUT = (select) ? A : B;
+assign out = (select) ? A : B;
 
 endmodule
