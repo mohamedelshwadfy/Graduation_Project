@@ -1,111 +1,82 @@
-/*
-	module name : ALU
-	module inputs : 
-				- ALUControl : the control lines 3-bit 
-				- A : the source one 32-bit
-				- B : the source two 32-bit
-				
-	module outputs :
-				- ALUResult : the result of the alu 32-bit
-				- C : the carry flage 1-bit
-				- O : the overflow flage 1-bit
-				- Z : the zero flage 1-bit
-	module function : 
-				- the arithmatic and logic core in the processor 
-*/
-module ALU #(parameter WIDTH = 32 , CTRL_W = 3) (
-		ALUControl ,
-		A,
-		B,
-		ALUResult,
-		C,
-		O,
-		Z
-	);
+// Module: ALU
+// Description: Arithmetic and Logic Unit (ALU) for the processor
+// Parameters: WIDTH - Data width, default 32-bit; CTRL_WIDTH - Control width, default 3-bit
+// Inputs: aluControl - 3-bit control line; a, b - 32-bit source lines
+// Outputs: aluResult - 32-bit result; carry - Carry flag; overflow - Overflow flag; zero - Zero flag
 
-// the input declaration
-input [ CTRL_W - 1 : 0] ALUControl;
-input [ WIDTH  - 1 : 0] A , B;
+module ALU #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) (
+    input  [CTRL_WIDTH-1:0] aluControl,
+    input  [WIDTH-1:0] a,
+    input  [WIDTH-1:0] b,
+    output [WIDTH-1:0] aluResult,
+    output             carry,
+    output             overflow,
+    output             zero
+);
 
-// the output declaration
-output reg [ WIDTH - 1 : 0] ALUResult;
-output reg C ;
-output O , Z;
+    wire [WIDTH-1:0] aluResultTemp;
+    wire             carryTemp;
+    reg              mode;
 
-wire [WIDTH - 1 : 0 ] ALUResult_temp;
-wire C_temp;
-reg M;
+    CarryLookAheadAdder #(.WIDTH(WIDTH)) adder (
+        .a(a),
+        .b(b),
+        .cin(mode),
+        .sum(aluResultTemp),
+        .cout(carryTemp)
+    );
 
-// look-ahead carry adder instantiation
-CARRY_LOOK_AHEAD_ADDER adder1(
-								.a(A),
-								.b(B),
-								.cin(M),
-								.sum(ALUResult_temp),
-								.cout(C_temp),
-								.M(M)
-							);
-always @(*)
-	begin
-		case(ALUControl)
-			//ADD
-			3'b000 : begin
-						M = 1'b0;
-						ALUResult = ALUResult_temp;
-						C = C_temp;
-					end
-			//SUB
-			3'b001 :  begin
-						M = 1'b1;
-						ALUResult = ALUResult_temp;
-						C = C_temp;
-					end
-			//AND
-			3'b010 : begin
-			             M = 1'b0;
-						 ALUResult = A & B;
-						C = 1'b0;
-					end
-			//OR
-			3'b011 : begin
-			             M = 1'b0;
-						ALUResult  = A | B  ;
-						C = 1'b0;
-					end
-			//slt
-			3'b101 : begin
-			             M = 1'b0;
-				ALUResult = (A < B) ? 32'h00000001 : 32'h00000000 ;
-					C = 1'b0;
-				end
-			//XOR
-			3'b100:begin
-			         M = 1'b0;
-				ALUResult  = A ^ B  ;
-				C = 1'b0;
-				  end
-			//SLL
-			3'b110: begin
-				M = 1'b0;
-				ALUResult  = A << B  ;
-				C = 1'b0;
-				end
-			//SRL
-			3'b111: begin
-				M = 1'b0;
-				ALUResult  = A >> B  ;
-				C = 1'b0;
-				end
-			default :  begin
-			             M = 1'b0;
-						ALUResult = 32'hxxxx_xxxx ;
-						C = 1'bx;
-					end
-		endcase
-	end
+    always @(*) begin
+        case (aluControl)
+            3'b000: begin // ADD
+                mode = 1'b0;
+                aluResult = aluResultTemp;
+                carry = carryTemp;
+            end
+            3'b001: begin // SUB
+                mode = 1'b1;
+                aluResult = aluResultTemp;
+                carry = carryTemp;
+            end
+            3'b010: begin // AND
+                mode = 1'b0;
+                aluResult = a & b;
+                carry = 1'b0;
+            end
+            3'b011: begin // OR
+                mode = 1'b0;
+                aluResult = a | b;
+                carry = 1'b0;
+            end
+            3'b100: begin // XOR
+                mode = 1'b0;
+                aluResult = a ^ b;
+                carry = 1'b0;
+            end
+            3'b101: begin // SLT
+                mode = 1'b0;
+                aluResult = (a < b) ? 32'h00000001 : 32'h00000000;
+                carry = 1'b0;
+            end
+            3'b110: begin // SLL
+                mode = 1'b0;
+                aluResult = a << b;
+                carry = 1'b0;
+            end
+            3'b111: begin // SRL
+                mode = 1'b0;
+                aluResult = a >> b;
+                carry = 1'b0;
+            end
+            default: begin
+                mode = 1'b0;
+                aluResult = 32'hxxxx_xxxx;
+                carry = 1'bx;
+            end
+        endcase
+    end
 
-assign O = ((ALUResult[31] ^ A[31]) & (~(ALUControl[0] ^ B[31] ^ A[31])) & (~ALUControl[1])) ;
+    assign overflow = ((aluResult[31] ^ a[31]) & (~(aluControl[0] ^ b[31] ^ a[31])) & (~aluControl[1]));
+    assign zero = &(~aluResult);
 
-assign Z = &(~ALUResult) ;
-
-endmodule 
+endmodule
