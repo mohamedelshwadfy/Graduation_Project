@@ -1,38 +1,56 @@
-// Module: InstructionMemory
-// Description: Instruction memory (ROM)
-// Inputs: address - 32-bit address line
-// Outputs: instruction - 32-bit instruction line
+/*
+	module name : DATA_MEMORY
+	module inputs : 
+				- CLK : the global clock of the system
+				- RESET : the global reset of the system
+				- ADDRESS : 32-bit address line 
+				- WRITE_READ : control signal to read or write enable
+				- WRITE_DATA : 32-bit data pass 
+				
+	module outputs :
+				- READ_DATA : 32-bit data pass
+	module function : 
+				- it is a RAM . it have control signal to allowing write or read from it 
+				  the write opearation is synchronized with the clock and the read
+				  opearation is combinationally logic 
+*/
+module DATA_MEMORY #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
+		CLK,
+		ADDRESS,
+		WRITE_READ,
+		WRITE_DATA,
+		READ_DATA
+	);
 
-module InstructionMemory #(parameter WIDTH = 32, MEM_DEPTH = 256) (
-    input  [WIDTH - 1 : 0] address,
-    output reg [WIDTH - 1 : 0] instruction
-);
+input                    CLK;
+input                    WRITE_READ;
+input  [ WIDTH - 1 : 0 ] ADDRESS;
+input  [ WIDTH - 1 : 0 ] WRITE_DATA;
 
-always @(*) begin
-    case(address >> 2)
-        32'h0000_0000 : instruction = 32'h01a00093;
-        32'h0000_0001 : instruction = 32'h501020a3;
-        32'h0000_0002 : instruction = 32'h00500593;
-        32'h0000_0003 : instruction = 32'h50002383;
-        32'h0000_0004 : instruction = 32'h2003f413;
-        32'h0000_0005 : instruction = 32'h20000493;
-        32'h0000_0006 : instruction = 32'hfe940ae3;
-        32'h0000_0007 : instruction = 32'h50b02123;
-        32'h0000_0008 : instruction = 32'h00158593;
-        32'h0000_0009 : instruction = 32'h50002103;
-        32'h0000_000a : instruction = 32'h10017193;
-        32'h0000_000b : instruction = 32'h10000213;
-        32'h0000_000c : instruction = 32'hfe418ae3;
-        32'h0000_000d : instruction = 32'h50002283;
-        32'h0000_000e : instruction = 32'h0ff2f313;
-        32'h0000_000f : instruction = 32'h50002103;
-        32'h0000_0010 : instruction = 32'h10017193;
-        32'h0000_0011 : instruction = 32'h10000213;
-        32'h0000_0012 : instruction = 32'hfe418ae3;
-        32'h0000_0013 : instruction = 32'h503021a3;
-        32'h0000_0014 : instruction = 32'hfa000ee3;
-        default : instruction = 32'h00000013;
-    endcase
+output [ WIDTH - 1 : 0 ] READ_DATA;
+
+reg    [ WIDTH - 1 : 0 ] DATA [ 0 : MEM_DEPTH - 1];
+
+integer i;
+// the synchronuos write 
+always @(posedge CLK) begin
+/*
+	if(~RESET) // synchronus reset
+	    for(i = 0 ; i < MEM_DEPTH ; i = i + 1 )
+		  DATA[i] <= { WIDTH{1'b0} };
+
+	else begin
+	    if (WRITE_READ) // write opearation
+	        DATA[ADDRESS] <= WRITE_DATA;
+	end
+	*/
+	if (WRITE_READ) // write opearation
+        DATA[ADDRESS] <= WRITE_DATA;
 end
 
-endmodule
+assign READ_DATA = (WRITE_READ) ? 32'h0000_0000 : DATA[ADDRESS]; // read opearation
+initial begin
+for(i = 0 ; i < MEM_DEPTH ; i = i + 1 )
+		  DATA[i] <= { WIDTH{1'b0} };
+ end
+endmodule 
