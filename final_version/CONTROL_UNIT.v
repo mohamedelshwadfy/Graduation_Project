@@ -1,49 +1,44 @@
-module CONTROL_UNIT (
-		op,
-		RegWrite,
-		ImmSrc,
-		ALUSrc,
-		MemWrite,
-		ResultSrc,
-		Branch,
-		Jump,
-		funct3,
-		funct7,
-		ALUControl
-		
-	);
+// Module: ControlUnit
+// Description: Main control unit
+// Inputs: op - 7-bit opcode; funct3 - 3-bit function code; funct7 - 1-bit function code
+// Outputs: RegWrite - Register write enable; ALUSrc - ALU source select; MemWrite - Memory write enable
+//          ImmSrc - Immediate source select; ResultSrc - Result source select; Branch - Branch signal; Jump - Jump signal
+//          ALUControl - ALU control signals
 
-    input [6:0]op;
-    input funct7; //1bit - 5
-    input [2:0]funct3;
+module ControlUnit (
+    input  [6:0] op,
+    input        funct7,
+    input  [2:0] funct3,
+    output       RegWrite,
+    output       ALUSrc,
+    output       MemWrite,
+    output [1:0] ImmSrc,
+    output [1:0] ResultSrc,
+    output [2:0] ALUControl,
+    output       Branch,
+    output       Jump
+);
 
-    output RegWrite,ALUSrc,MemWrite;
-    output [1:0]ImmSrc,ResultSrc;
-    output [2:0]ALUControl;
-    output Branch;
-    output Jump;
+    wire [1:0] ALUOp;
 
-    wire [1:0]ALUOp;
-    wire Jump , Branch;
-    Main_CONTROL_UNIT MAIN_CONTROL_UNIT(
-                .Op(op),
-                .RegWrite(RegWrite),
-                .ImmSrc(ImmSrc),
-                .MemWrite(MemWrite),
-                .ResultSrc(ResultSrc),
-                .Branch(Branch),
-                .ALUSrc(ALUSrc),
-                .ALUOp(ALUOp),
-		        .Jump(Jump)
+    MainControlUnit mainControl (
+        .op(op),
+        .regWrite(RegWrite),
+        .immSrc(ImmSrc),
+        .memWrite(MemWrite),
+        .resultSrc(ResultSrc),
+        .branch(Branch),
+        .aluSrc(ALUSrc),
+        .aluOp(ALUOp),
+        .jump(Jump)
     );
 
-    ALU_CONTROL_UNIT ALU_CONTROL_UNIT(
-                .ALUOp(ALUOp),
-                .funct3(funct3),
-                .funct7(funct7),
-                .op(op[5]),
-                .ALUControl(ALUControl)
+    ALUControlUnit aluControl (
+        .aluOp(ALUOp),
+        .funct3(funct3),
+        .funct7(funct7),
+        .op(op[5]),
+        .aluControl(ALUControl)
     );
 
-//assign PCSrc = (Branch & Zero) | Jump;
 endmodule
