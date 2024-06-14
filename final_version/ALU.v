@@ -19,6 +19,7 @@ module ALU #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) (
     wire                     carry_temp;
     reg                      mode;
 
+    //instantiation of Carry Look Ahead Adder module
     CarryLookAheadAdder #(.WIDTH(WIDTH)) adder (
         .a(a),
         .b(b),
