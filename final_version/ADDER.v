@@ -1,30 +1,15 @@
-/*
-	Module name : ADDER
-	Inputs : 
-			- A : 16-bit line
-			- B : 16-bit line
-	output : 
-			- Y : 16-bit line
-	Parameters :
-			- N : line WIDTH , default 16-bit
-	Function :
-			- it adds two numbers and ignore the carry out 
-	Made by : 
-			-Omar Hany Elsayed
-*/
-//module name and ports declaration
-module ADDER #(parameter WIDTH = 32) (
-	A,
-	B,
-	OUTPUT
+// Module: Adder
+// Description: Adds two numbers and ignores the carry out
+// Parameters: WIDTH - Line width, default 32-bit
+// Inputs: a, b - 32-bit lines
+// Outputs: y - 32-bit line
+
+module Adder #(parameter WIDTH = 32) (
+    input  [WIDTH-1:0] a,
+    input  [WIDTH-1:0] b,
+    output [WIDTH-1:0] y
 );
-// input-output ports
-input [ WIDTH - 1 : 0 ] A,B;
-output reg [ WIDTH - 1 : 0 ] OUTPUT;
 
-// code body
-always @(*) begin
-	OUTPUT = A + B;
-end
+    assign y = a + b;
 
-endmodule 
+endmodule
