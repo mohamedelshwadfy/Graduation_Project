@@ -4,14 +4,14 @@
    Inputs: a, b - 32-bit input lines; cin - Carry input; mode - Mode (used for XOR with b)
    Outputs: sum - 32-bit sum; cout - Carry output
 */
-module CarryLookAheadAdder #(parameter WIDTH = 32) ( a , b , cin , mode , sum , cout );
-    input  [WIDTH-1:0]  a;
-    input  [WIDTH-1:0]  b;
-    input               cin;
-    input               mode;
-    output [WIDTH-1:0]  sum;
-    output              cout;
-
+module CarryLookAheadAdder #(parameter WIDTH = 32) (
+    input  [WIDTH-1:0]  a,
+    input  [WIDTH-1:0]  b,
+    input               cin,
+    input               mode,
+    output [WIDTH-1:0]  sum,
+    output              cout
+);
     wire   [WIDTH-1:0]  b_xor;
     wire                c1;
     wire                c2;
