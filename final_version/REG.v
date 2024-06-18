@@ -1,27 +1,27 @@
-// Module: Register
+// Module: register
 // Description: General-purpose register with enable and clear functionality
-// Inputs: clk - clock signal; rst - reset signal; INPUT - input data; EN - enable signal; CLR - clear signal
-// Outputs: OUT - output data
+// Inputs: clk - clock signal; rst - reset signal; input - input data; en - enable signal; clr - clear signal
+// Outputs: out - output data
 
-module Register #(parameter WIDTH = 32) (
+module register #(parameter WIDTH = 32) (
     input clk,
     input rst,
-    input EN,
-    input CLR,
-    input [WIDTH - 1 : 0] INPUT,
-    output reg [WIDTH - 1 : 0] OUT
+    input en,
+    input clr,
+    input [WIDTH-1:0] input,
+    output reg [WIDTH-1:0] out
 );
 
-always @(posedge clk or negedge rst) begin
-    if (~rst) begin
-        OUT <= {WIDTH{1'b0}};
-    end else begin
-        if (CLR) begin
-            OUT <= {WIDTH{1'b0}};
-        end else if (~EN) begin
-            OUT <= INPUT;
+    always @(posedge clk or negedge rst) begin
+        if (~rst) begin
+            out <= {WIDTH{1'b0}};
+        end else begin
+            if (clr) begin
+                out <= {WIDTH{1'b0}};
+            } else if (~en) begin
+                out <= input;
+            end
         end
-    end 
-end
+    end
 
 endmodule
