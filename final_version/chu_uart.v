@@ -1,3 +1,10 @@
+// Module: chu_uart
+// Description: UART with FIFO buffer
+// Parameters: FIFO_DEPTH_BIT - Number of address bits in FIFO
+// Inputs: clk - Clock signal; reset - Reset signal; cs - Chip select; read - Read enable; write - Write enable; addr - Address; wr_data - Write data
+//         rx - Receive data
+// Outputs: rd_data - Read data; tx - Transmit data
+
 module chu_uart #(
     parameter FIFO_DEPTH_BIT = 8 // Number of address bits in FIFO
 ) (
@@ -22,8 +29,8 @@ module chu_uart #(
 
     // Instantiate UART
     uart #(
-        .DBIT(8), 
-        .SB_TICK(16), 
+        .DBIT(8),
+        .SB_TICK(16),
         .FIFO_W(FIFO_DEPTH_BIT)
     ) uart_unit (
         .clk(clk),
@@ -54,4 +61,5 @@ module chu_uart #(
 
     // Slot read interface
     assign rd_data = {22'h000000, tx_full, rx_empty, r_data};
+
 endmodule
