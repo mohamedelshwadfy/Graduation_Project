@@ -1,22 +1,22 @@
-// Module: ProgramCounter
+// Module: program_counter
 // Description: Program counter
-// Inputs: CLK - clock signal; Reset - reset signal; PC_next - 32-bit next program counter value; En - enable signal
-// Outputs: PC - 32-bit program counter
+// Inputs: clk - clock signal; reset - reset signal; pc_next - 32-bit next program counter value; en - enable signal
+// Outputs: pc - 32-bit program counter
 
-module ProgramCounter #(parameter WIDTH = 32) (
-    input  CLK,
-    input  Reset,
-    input  En,
-    input  [WIDTH - 1 : 0] PC_next,
-    output reg [WIDTH - 1 : 0] PC
+module program_counter #(parameter WIDTH = 32) (
+    input clk,
+    input reset,
+    input en,
+    input [WIDTH-1:0] pc_next,
+    output reg [WIDTH-1:0] pc
 );
 
-always @(posedge CLK or negedge Reset) begin
-    if(~Reset) begin
-        PC <= 32'h00000000;
-    end else if (~En) begin
-        PC <= PC_next;
+    always @(posedge clk or negedge reset) begin
+        if (~reset) begin
+            pc <= 32'h00000000;
+        end else if (~en) begin
+            pc <= pc_next;
+        end
     end
-end
 
 endmodule
