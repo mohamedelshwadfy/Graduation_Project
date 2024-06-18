@@ -5,15 +5,15 @@
    Outputs: aluResult - 32-bit result; carry - Carry flag; overflow - Overflow flag; zero - Zero flag
 */   
 
-module ALU #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) ( alu_control , a , b , alu_result , carry , over_flow , zero );
-    input  [CTRL_WIDTH-1:0]  alu_control;
-    input  [WIDTH-1:0]       a;
-    input  [WIDTH-1:0]       b;
-    output [WIDTH-1:0]       alu_result;
-    output                   carry;
-    output                   over_flow;
-    output                   zero;
-
+module ALU #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) ( 
+    input  [CTRL_WIDTH-1:0]  alu_control,
+    input  [WIDTH-1:0]       a,
+    input  [WIDTH-1:0]       b,
+    output [WIDTH-1:0]       alu_result,
+    output                   carry,
+    output                   over_flow,
+    output                   zero
+);
     wire   [WIDTH-1:0]       alu_result_temp;
     wire                     carry_temp;
     reg                      mode;
