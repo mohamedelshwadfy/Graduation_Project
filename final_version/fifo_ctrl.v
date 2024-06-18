@@ -1,3 +1,9 @@
+// Module: fifo_ctrl
+// Description: Control logic for FIFO buffer
+// Parameters: ADDR_WIDTH - Number of address bits
+// Inputs: clk - Clock signal; reset - Reset signal; rd - Read enable; wr - Write enable
+// Outputs: empty - Empty flag; full - Full flag; w_addr - Write address; r_addr - Read address
+
 module fifo_ctrl #(
     parameter ADDR_WIDTH = 4  // Number of address bits
 ) (
