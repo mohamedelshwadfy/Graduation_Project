@@ -1,10 +1,10 @@
-// Module: instruction_memory
-// Description: Instruction memory (ROM)
-// Inputs: address - 32-bit address line
-// Outputs: instruction - 32-bit instruction line
-
+/* Module: instruction_memory
+   Description: Instruction memory (ROM)
+   Inputs: address - 32-bit address line
+   Outputs: instruction - 32-bit instruction line
+*/
 module instruction_memory #(parameter WIDTH = 32, parameter MEM_DEPTH = 256) (
-    input  [WIDTH-1:0] address,
+    input      [WIDTH-1:0] address,
     output reg [WIDTH-1:0] instruction
 );
 
