@@ -1,19 +1,18 @@
-// Module: uart_rx
-// Description: UART receiver
-// Parameters: DBIT - Number of data bits; SB_TICK - Number of ticks for stop bits
-// Inputs: clk - Clock signal; reset - Reset signal; rx - Receive data; s_tick - Tick signal
-// Outputs: rx_done_tick - Receive done tick; dout - Output data
-
+/* Module: uart_rx
+   Description: UART receiver
+   Inputs: clk - Clock signal; reset - Reset signal; rx - Receive data; s_tick - Tick signal
+   Outputs: rx_done_tick - Receive done tick; dout - Output data
+*/
 module uart_rx #(
     parameter DBIT = 8,     // Number of data bits
     parameter SB_TICK = 16  // Number of ticks for stop bits
 ) (
-    input wire clk,
-    input wire reset,
-    input wire rx,
-    input wire s_tick,
-    output reg rx_done_tick,
-    output wire [7:0] dout
+    input            clk,
+    input            reset,
+    input            rx,
+    input            s_tick,
+    output reg       rx_done_tick,
+    output     [7:0] dout
 );
 
     // FSM state type
