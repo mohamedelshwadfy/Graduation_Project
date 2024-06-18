@@ -1,18 +1,18 @@
-// Module: fifo_ctrl
-// Description: Control logic for FIFO buffer
-// Parameters: ADDR_WIDTH - Number of address bits
-// Inputs: clk - Clock signal; reset - Reset signal; rd - Read enable; wr - Write enable
-// Outputs: empty - Empty flag; full - Full flag; w_addr - Write address; r_addr - Read address
-
+/* Module: fifo_ctrl
+   Description: Control logic for FIFO buffer
+   Parameters: ADDR_WIDTH - Number of address bits
+   Inputs: clk - Clock signal; reset - Reset signal; rd - Read enable; wr - Write enable
+   Outputs: empty - Empty flag; full - Full flag; w_addr - Write address; r_addr - Read address
+*/
 module fifo_ctrl #(
     parameter ADDR_WIDTH = 4  // Number of address bits
 ) (
-    input wire clk,
-    input wire reset,
-    input wire rd,
-    input wire wr,
-    output reg empty,
-    output reg full,
+    input                       clk,
+    input                       reset,
+    input                       rd,
+    input                       wr,
+    output reg                  empty,
+    output reg                  full,
     output reg [ADDR_WIDTH-1:0] w_addr,
     output reg [ADDR_WIDTH-1:0] r_addr
 );
@@ -20,7 +20,7 @@ module fifo_ctrl #(
     // Signal declaration
     reg [ADDR_WIDTH-1:0] w_ptr_logic, w_ptr_next, w_ptr_succ;
     reg [ADDR_WIDTH-1:0] r_ptr_logic, r_ptr_next, r_ptr_succ;
-    reg full_logic, empty_logic, full_next, empty_next;
+    reg                  full_logic, empty_logic, full_next, empty_next;
 
     // Registers for status and read/write pointers
     always @(posedge clk or posedge reset) begin
