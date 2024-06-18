@@ -1,10 +1,8 @@
-// Module: mcu_top
-// Description: Top-level module for the MCU
-// Parameters: WIDTH - Data width; DVSR - Baud rate divisor; UART_D_S_R - UART data status register address
-//             UART_B - UART base address; UART_W_D - UART write data address; UART_DUMB - UART dummy address
-// Inputs: clock - Clock signal; reset - Reset signal; serial_in - Serial input
-// Outputs: serial_out - Serial output
-
+/* Module: mcu_top
+   Description: Top-level module for the MCU
+   Inputs: clock - Clock signal; reset - Reset signal; serial_in - Serial input
+   Outputs: serial_out - Serial output
+*/
 module mcu_top #(
     parameter WIDTH = 32,
     parameter DVSR = 26,
@@ -26,11 +24,11 @@ module mcu_top #(
     wire [WIDTH-1:0] ram_w_data;
     wire [WIDTH-1:0] muxed_read_data;
     wire [WIDTH-1:0] uart_r_data;
-    wire uart_wen;
-    wire uart_ren;
-    wire ram_w_r_en;
-    wire read_write_ram_en;
-    wire cs;
+    wire             uart_wen;
+    wire             uart_ren;
+    wire             ram_w_r_en;
+    wire             read_write_ram_en;
+    wire             cs;
 
     // Instantiate RISC-V Core
     risc_v_core core (
