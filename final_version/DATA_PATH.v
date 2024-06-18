@@ -101,9 +101,9 @@ module data_path #(parameter WIDTH = 32) (
     );
 
     // IF/ID Registers
-    register #(.WIDTH(WIDTH)) pc_if_id (.rst(reset), .clk(clock), .input(rom_address), .out(pc_id), .en(stall_d), .clr(flush_d));
-    register #(.WIDTH(WIDTH)) inst_if_id (.rst(reset), .clk(clock), .input(rom_data), .out(instruction_id), .en(stall_d), .clr(flush_d));
-    register #(.WIDTH(WIDTH)) pc_plus4_if_id (.rst(reset), .clk(clock), .input(pc_plus4), .out(pc_plus4_id), .en(stall_d), .clr(flush_d));
+    register #(.WIDTH(WIDTH)) pc_if_id (.rst(reset), .clk(clock), .in(rom_address), .out(pc_id), .en(stall_d), .clr(flush_d));
+    register #(.WIDTH(WIDTH)) inst_if_id (.rst(reset), .clk(clock), .in(rom_data), .out(instruction_id), .en(stall_d), .clr(flush_d));
+    register #(.WIDTH(WIDTH)) pc_plus4_if_id (.rst(reset), .clk(clock), .in(pc_plus4), .out(pc_plus4_id), .en(stall_d), .clr(flush_d));
 
     // Instruction Decode stage (ID)
     register_file register_file (
