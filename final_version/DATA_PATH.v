@@ -165,7 +165,7 @@ module data_path #(parameter WIDTH = 32) (
     adder adder1 (
         .a(pc_ex),
         .b(imm_ext_ex),
-        .out(pc_target)
+        .y(pc_target)
     );
 
     mux mux1 (
