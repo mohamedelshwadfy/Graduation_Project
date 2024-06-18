@@ -1,3 +1,9 @@
+// Module: fifo
+// Description: FIFO buffer with control logic and register file
+// Parameters: DATA_WIDTH - Number of bits in a word; ADDR_WIDTH - Number of address bits
+// Inputs: clk - Clock signal; reset - Reset signal; rd - Read enable; wr - Write enable; w_data - Write data
+// Outputs: empty - Empty flag; full - Full flag; r_data - Read data
+
 module fifo #(
     parameter DATA_WIDTH = 8, // Number of bits in a word
     parameter ADDR_WIDTH = 4  // Number of address bits
@@ -23,7 +29,7 @@ module fifo #(
     // Instantiate FIFO control unit
     fifo_ctrl #(
         .ADDR_WIDTH(ADDR_WIDTH)
-    ) c_unit (
+    ) ctrl_unit (
         .clk(clk),
         .reset(reset),
         .rd(rd),
@@ -36,9 +42,9 @@ module fifo #(
 
     // Instantiate register file
     reg_file #(
-        .DATA_WIDTH(DATA_WIDTH), 
+        .DATA_WIDTH(DATA_WIDTH),
         .ADDR_WIDTH(ADDR_WIDTH)
-    ) f_unit (
+    ) reg_unit (
         .clk(clk),
         .reset(reset),
         .w_data(w_data),
@@ -47,4 +53,5 @@ module fifo #(
         .wr_en(wr_en),
         .r_data(r_data)
     );
+
 endmodule
