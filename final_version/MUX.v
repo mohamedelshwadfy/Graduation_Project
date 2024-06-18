@@ -1,15 +1,15 @@
-// Module: MUX
+// Module: mux
 // Description: 2-to-1 multiplexer
-// Inputs: select - control signal; A, B - 32-bit inputs
-// Outputs: OUT - 32-bit output
+// Inputs: select - control signal; a, b - 32-bit inputs
+// Outputs: out - 32-bit output
 
-module MUX #(parameter WIDTH = 32) (
-    input  select,
-    input  [WIDTH - 1 : 0] A,
-    input  [WIDTH - 1 : 0] B,
-    output [WIDTH - 1 : 0] OUT
+module mux #(parameter WIDTH = 32) (
+    input select,
+    input [WIDTH-1:0] a,
+    input [WIDTH-1:0] b,
+    output [WIDTH-1:0] out
 );
 
-assign OUT = (select) ? A : B;
+    assign out = (select) ? a : b;
 
 endmodule
