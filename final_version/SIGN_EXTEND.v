@@ -1,11 +1,11 @@
-// Module: sign_extend
-// Description: Sign extends the immediate field based on the instruction type
-// Inputs: instruction - input instruction; immsrc - immediate source
-// Outputs: output_extended - sign-extended output
-
+/* Module: sign_extend
+   Description: Sign extends the immediate field based on the instruction type
+   Inputs: instruction - input instruction; immsrc - immediate source
+   Outputs: output_extended - sign-extended output
+*/
 module sign_extend #(parameter WIDTH = 32) (
-    input [WIDTH-1:7] instruction,
-    input [1:0] immsrc,
+    input      [WIDTH-1:7] instruction,
+    input      [1:0]       immsrc,
     output reg [WIDTH-1:0] output_extended
 );
 
