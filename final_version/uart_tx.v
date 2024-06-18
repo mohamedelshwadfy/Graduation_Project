@@ -1,20 +1,19 @@
-// Module: uart_tx
-// Description: UART transmitter
-// Parameters: DBIT - Number of data bits; SB_TICK - Number of ticks for 1 stop bit
-// Inputs: clk - Clock signal; reset - Reset signal; tx_start - Transmit start signal; s_tick - Tick signal; din - Input data
-// Outputs: tx_done_tick - Transmit done tick; tx - Transmit data
-
+/* Module: uart_tx
+   Description: UART transmitter
+   Inputs: clk - Clock signal; reset - Reset signal; tx_start - Transmit start signal; s_tick - Tick signal; din - Input data
+   Outputs: tx_done_tick - Transmit done tick; tx - Transmit data
+*/
 module uart_tx #(
     parameter DBIT = 8,     // Number of data bits
     parameter SB_TICK = 16  // Number of ticks for 1 stop bit
 ) (
-    input wire clk,
-    input wire reset,
-    input wire tx_start,
-    input wire s_tick,
-    input wire [7:0] din,
-    output reg tx_done_tick,
-    output wire tx
+    input        clk,
+    input        reset,
+    input        tx_start,
+    input        s_tick,
+    input  [7:0] din,
+    output reg   tx_done_tick,
+    output       tx
 );
 
     // FSM state type
@@ -30,7 +29,7 @@ module uart_tx #(
     reg [3:0] s_reg, s_next;
     reg [2:0] n_reg, n_next;
     reg [7:0] b_reg, b_next;
-    reg tx_reg, tx_next;
+    reg       tx_reg, tx_next;
 
     // FSMD state & data registers
     always @(posedge clk or posedge reset) begin
