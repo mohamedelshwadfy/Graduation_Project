@@ -1,3 +1,10 @@
+// Module: uart
+// Description: Universal Asynchronous Receiver Transmitter (UART) with FIFO buffer
+// Parameters: DBIT - Number of data bits; SB_TICK - Number of ticks for 1 stop bit; FIFO_W - Address bits of FIFO
+// Inputs: clk - Clock signal; reset - Reset signal; rd_uart - Read enable for UART; wr_uart - Write enable for UART; rx - Receive data
+//         w_data - Write data; dvsr - Divider value
+// Outputs: tx_full - Transmitter full flag; rx_empty - Receiver empty flag; tx - Transmit data; r_data - Read data
+
 module uart #(
     parameter DBIT = 8,     // Number of data bits
     parameter SB_TICK = 16, // Number of ticks for 1 stop bit
@@ -31,7 +38,7 @@ module uart #(
 
     // Instantiate UART receiver
     uart_rx #(
-        .DBIT(DBIT), 
+        .DBIT(DBIT),
         .SB_TICK(SB_TICK)
     ) uart_rx_unit (
         .clk(clk),
@@ -44,7 +51,7 @@ module uart #(
 
     // Instantiate UART transmitter
     uart_tx #(
-        .DBIT(DBIT), 
+        .DBIT(DBIT),
         .SB_TICK(SB_TICK)
     ) uart_tx_unit (
         .clk(clk),
