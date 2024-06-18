@@ -8,18 +8,12 @@
 	outputs: READ_DATA : 32-bit data pass
 */
 module DATA_MEMORY #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
-		clk,
-		address,
-		write_read,
-		write_data,
-		read_data
-	);
-
-input                     clk;
-input                     write_read;
-input  [ WIDTH - 1 : 0 ]  address;
-input  [ WIDTH - 1 : 0 ]  write_data;
-output [ WIDTH - 1 : 0 ]  read_data;
+input                     clk,
+input                     write_read,
+input  [ WIDTH - 1 : 0 ]  address,
+input  [ WIDTH - 1 : 0 ]  write_data,
+output [ WIDTH - 1 : 0 ]  read_data
+);
 
 reg    [ WIDTH - 1 : 0 ] DATA [ 0 : MEM_DEPTH - 1];
 
