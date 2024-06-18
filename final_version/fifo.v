@@ -1,26 +1,26 @@
-// Module: fifo
-// Description: FIFO buffer with control logic and register file
-// Parameters: DATA_WIDTH - Number of bits in a word; ADDR_WIDTH - Number of address bits
-// Inputs: clk - Clock signal; reset - Reset signal; rd - Read enable; wr - Write enable; w_data - Write data
-// Outputs: empty - Empty flag; full - Full flag; r_data - Read data
-
+/* Module: fifo
+   Description: FIFO buffer with control logic and register file
+   Parameters: DATA_WIDTH - Number of bits in a word; ADDR_WIDTH - Number of address bits
+   Inputs: clk - Clock signal; reset - Reset signal; rd - Read enable; wr - Write enable; w_data - Write data
+   Outputs: empty - Empty flag; full - Full flag; r_data - Read data
+*/
 module fifo #(
     parameter DATA_WIDTH = 8, // Number of bits in a word
     parameter ADDR_WIDTH = 4  // Number of address bits
 ) (
-    input wire clk,
-    input wire reset,
-    input wire rd,
-    input wire wr,
-    input wire [DATA_WIDTH-1:0] w_data,
-    output wire empty,
-    output wire full,
-    output wire [DATA_WIDTH-1:0] r_data
+    input                    clk,
+    input                    reset,
+    input                    rd,
+    input                    wr,
+    input   [DATA_WIDTH-1:0] w_data,
+    output                   empty,
+    output                   full,
+    output  [DATA_WIDTH-1:0] r_data
 );
 
     // Signal declaration
     wire [ADDR_WIDTH-1:0] w_addr, r_addr;
-    wire wr_en, full_tmp;
+    wire                  wr_en, full_tmp;
 
     // Write enabled only when FIFO is not full
     assign wr_en = wr & ~full_tmp;
