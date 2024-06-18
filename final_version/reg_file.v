@@ -1,20 +1,19 @@
-// Module: reg_file
-// Description: Register file with synchronous write and asynchronous read
-// Parameters: DATA_WIDTH - Number of bits in a word; ADDR_WIDTH - Number of address bits
-// Inputs: clk - Clock signal; reset - Reset signal; wr_en - Write enable; w_addr - Write address; r_addr - Read address; w_data - Write data
-// Outputs: r_data - Read data
-
+/* Module: reg_file
+   Description: Register file with synchronous write and asynchronous read
+   Inputs: clk - Clock signal; reset - Reset signal; wr_en - Write enable; w_addr - Write address; r_addr - Read address; w_data - Write data
+   Outputs: r_data - Read data
+*/
 module reg_file #(
     parameter DATA_WIDTH = 8, // Number of bits
     parameter ADDR_WIDTH = 2  // Number of address bits
 ) (
-    input wire clk,
-    input wire reset,
-    input wire wr_en,
-    input wire [ADDR_WIDTH-1:0] w_addr,
-    input wire [ADDR_WIDTH-1:0] r_addr,
-    input wire [DATA_WIDTH-1:0] w_data,
-    output wire [DATA_WIDTH-1:0] r_data
+    input                    clk,
+    input                    reset,
+    input                    wr_en,
+    input   [ADDR_WIDTH-1:0] w_addr,
+    input   [ADDR_WIDTH-1:0] r_addr,
+    input   [DATA_WIDTH-1:0] w_data,
+    output  [DATA_WIDTH-1:0] r_data
 );
 
     // Signal declaration
