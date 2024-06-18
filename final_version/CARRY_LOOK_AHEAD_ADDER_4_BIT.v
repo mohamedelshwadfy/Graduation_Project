@@ -3,13 +3,13 @@
    Inputs: a, b - 4-bit input lines; cin - Carry input
    Outputs: sum - 4-bit sum; cout - Carry output
 */
-module CarryLookAhead4Bit ( a , b , cin , sum , cout );
-    input  [3:0]  a;
-    input  [3:0]  b;
-    input         cin;
-    output [3:0]  sum;
-    output        cout;
-
+module CarryLookAhead4Bit ( 
+    input  [3:0]  a,
+    input  [3:0]  b,
+    input         cin,
+    output [3:0]  sum,
+    output        cout
+);
     wire   [3:0]  p;
     wire   [3:0]  g;
     wire   [3:0]  c;
