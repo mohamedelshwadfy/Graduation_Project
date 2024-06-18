@@ -180,9 +180,9 @@ module data_path #(parameter WIDTH = 32) (
         .a(src_a_ex),
         .b(src_b),
         .alu_result(alu_result),
-        .c(),
-        .o(),
-        .z(zero)
+        .carry(),
+        .over_flow(),
+        .zero(zero)
     );
 
     assign pc_src = (branch_ex & zero) | jump_ex;
