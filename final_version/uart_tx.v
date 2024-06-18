@@ -1,3 +1,9 @@
+// Module: uart_tx
+// Description: UART transmitter
+// Parameters: DBIT - Number of data bits; SB_TICK - Number of ticks for 1 stop bit
+// Inputs: clk - Clock signal; reset - Reset signal; tx_start - Transmit start signal; s_tick - Tick signal; din - Input data
+// Outputs: tx_done_tick - Transmit done tick; tx - Transmit data
+
 module uart_tx #(
     parameter DBIT = 8,     // Number of data bits
     parameter SB_TICK = 16  // Number of ticks for 1 stop bit
@@ -14,7 +20,7 @@ module uart_tx #(
     // FSM state type
     localparam IDLE  = 2'b00;
     localparam START = 2'b01;
-    localparam DATA  = 2'b02;
+    localparam DATA  = 2'b10;
     localparam STOP  = 2'b11;
 
     // State register
