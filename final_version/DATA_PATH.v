@@ -8,25 +8,25 @@
 //          rom_address - ROM address; ram_address - RAM address; ram_w_data - RAM write data; read_write_ram_en - RAM enable signal
 
 module data_path #(parameter WIDTH = 32) (
-    input clock,
-    input reset,
-    input branch,
-    input jump,
-    input reg_write,
-    input [1:0] imm_src,
-    input alu_src,
-    input mem_write,
-    input [2:0] alu_control,
-    input [1:0] result_src,
-    input [WIDTH-1:0] rom_data,
-    input [WIDTH-1:0] ram_r_data,
-    output [6:0] op,
-    output [2:0] funct3,
-    output funct7,
+    input              clock,
+    input              reset,
+    input              branch,
+    input              jump,
+    input              reg_write,
+    input  [1:0]       imm_src,
+    input              alu_src,
+    input              mem_write,
+    input  [2:0]       alu_control,
+    input  [1:0]       result_src,
+    input  [WIDTH-1:0] rom_data,
+    input  [WIDTH-1:0] ram_r_data,
+    output [6:0]       op,
+    output [2:0]       funct3,
+    output             funct7,
     output [WIDTH-1:0] rom_address,
     output [WIDTH-1:0] ram_address,
     output [WIDTH-1:0] ram_w_data,
-    output read_write_ram_en
+    output             read_write_ram_en
 );
 
     // Internal signals
@@ -53,30 +53,30 @@ module data_path #(parameter WIDTH = 32) (
     wire [WIDTH-1:0] pc_plus4_wb;
     wire [WIDTH-1:0] read_data_1_ex;
     wire [WIDTH-1:0] read_data_2_ex_mux;
-    wire [4:0] rd_ex;
-    wire [4:0] rd_m;
-    wire [4:0] rd_wb;
-    wire [4:0] rs2e;
-    wire [4:0] rs1e;
-    wire [2:0] alu_control_ex;
-    wire [1:0] result_src_ex;
-    wire [1:0] result_src_m;
-    wire [1:0] result_src_wb;
-    wire [1:0] forward_ae;
-    wire [1:0] forward_be;
-    wire stall_f;
-    wire stall_d;
-    wire flush_d;
-    wire flush_e;
-    wire reg_write_wb;
-    wire reg_write_ex;
-    wire pc_src;
-    wire mem_write_ex;
-    wire jump_ex;
-    wire branch_ex;
-    wire alu_src_ex;
-    wire zero;
-    wire reg_write_m;
+    wire [4:0]       rd_ex;
+    wire [4:0]       rd_m;
+    wire [4:0]       rd_wb;
+    wire [4:0]       rs2e;
+    wire [4:0]       rs1e;
+    wire [2:0]       alu_control_ex;
+    wire [1:0]       result_src_ex;
+    wire [1:0]       result_src_m;
+    wire [1:0]       result_src_wb;
+    wire [1:0]       forward_ae;
+    wire [1:0]       forward_be;
+    wire             stall_f;
+    wire             stall_d;
+    wire             flush_d;
+    wire             flush_e;
+    wire             reg_write_wb;
+    wire             reg_write_ex;
+    wire             pc_src;
+    wire             mem_write_ex;
+    wire             jump_ex;
+    wire             branch_ex;
+    wire             alu_src_ex;
+    wire             zero;
+    wire             reg_write_m;
 
     // Instruction Fetch stage (IF)
     mux mux0 (
@@ -129,21 +129,21 @@ module data_path #(parameter WIDTH = 32) (
     assign funct7 = instruction_id[30];
 
     // ID/EX Registers
-    register #(.WIDTH(1)) reg_write_id_ex (.rst(reset), .clk(clock), .input(reg_write), .out(reg_write_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(2)) result_src_id_ex (.rst(reset), .clk(clock), .input(result_src), .out(result_src_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(1)) mem_write_id_ex (.rst(reset), .clk(clock), .input(mem_write), .out(mem_write_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(1)) jump_id_ex (.rst(reset), .clk(clock), .input(jump), .out(jump_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(1)) branch_id_ex (.rst(reset), .clk(clock), .input(branch), .out(branch_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(3)) alu_control_id_ex (.rst(reset), .clk(clock), .input(alu_control), .out(alu_control_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(1)) alu_src_id_ex (.rst(reset), .clk(clock), .input(alu_src), .out(alu_src_ex), .en(1'b0), .clr(flush_e));
-    register src_a_id_ex (.rst(reset), .clk(clock), .input(src_a), .out(read_data_1_ex), .en(1'b0), .clr(flush_e));
-    register read_data_2_id_ex (.rst(reset), .clk(clock), .input(read_data_2), .out(read_data_2_ex), .en(1'b0), .clr(flush_e));
-    register pc_id_ex (.rst(reset), .clk(clock), .input(pc_id), .out(pc_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(5)) rd_id_ex (.rst(reset), .clk(clock), .input(instruction_id[11:7]), .out(rd_ex), .en(1'b0), .clr(flush_e));
-    register imm_ext_id_ex (.rst(reset), .clk(clock), .input(imm_ext), .out(imm_ext_ex), .en(1'b0), .clr(flush_e));
-    register pc_plus4_id_ex (.rst(reset), .clk(clock), .input(pc_plus4_id), .out(pc_plus4_ex), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(5)) instruction_id1 (.rst(reset), .clk(clock), .input(instruction_id[19:15]), .out(rs1e), .en(1'b0), .clr(flush_e));
-    register #(.WIDTH(5)) instruction_id2 (.rst(reset), .clk(clock), .input(instruction_id[24:20]), .out(rs2e), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(1)) reg_write_id_ex (.rst(reset), .clk(clock), .in(reg_write), .out(reg_write_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(2)) result_src_id_ex (.rst(reset), .clk(clock), .in(result_src), .out(result_src_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(1)) mem_write_id_ex (.rst(reset), .clk(clock), .in(mem_write), .out(mem_write_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(1)) jump_id_ex (.rst(reset), .clk(clock), .in(jump), .out(jump_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(1)) branch_id_ex (.rst(reset), .clk(clock), .in(branch), .out(branch_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(3)) alu_control_id_ex (.rst(reset), .clk(clock), .in(alu_control), .out(alu_control_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(1)) alu_src_id_ex (.rst(reset), .clk(clock), .in(alu_src), .out(alu_src_ex), .en(1'b0), .clr(flush_e));
+    register src_a_id_ex (.rst(reset), .clk(clock), .in(src_a), .out(read_data_1_ex), .en(1'b0), .clr(flush_e));
+    register read_data_2_id_ex (.rst(reset), .clk(clock), .in(read_data_2), .out(read_data_2_ex), .en(1'b0), .clr(flush_e));
+    register pc_id_ex (.rst(reset), .clk(clock), .in(pc_id), .out(pc_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(5)) rd_id_ex (.rst(reset), .clk(clock), .in(instruction_id[11:7]), .out(rd_ex), .en(1'b0), .clr(flush_e));
+    register imm_ext_id_ex (.rst(reset), .clk(clock), .in(imm_ext), .out(imm_ext_ex), .en(1'b0), .clr(flush_e));
+    register pc_plus4_id_ex (.rst(reset), .clk(clock), .in(pc_plus4_id), .out(pc_plus4_ex), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(5)) instruction_id1 (.rst(reset), .clk(clock), .in(instruction_id[19:15]), .out(rs1e), .en(1'b0), .clr(flush_e));
+    register #(.WIDTH(5)) instruction_id2 (.rst(reset), .clk(clock), .in(instruction_id[24:20]), .out(rs2e), .en(1'b0), .clr(flush_e));
 
     // Instruction Execute stage (EX)
     mux_3 mux6 (
@@ -165,7 +165,7 @@ module data_path #(parameter WIDTH = 32) (
     adder adder1 (
         .a(pc_ex),
         .b(imm_ext_ex),
-        .output(pc_target)
+        .out(pc_target)
     );
 
     mux mux1 (
@@ -188,24 +188,24 @@ module data_path #(parameter WIDTH = 32) (
     assign pc_src = (branch_ex & zero) | jump_ex;
 
     // EX/MEM Registers
-    register #(.WIDTH(1)) reg_write_ex_m (.rst(reset), .clk(clock), .input(reg_write_ex), .out(reg_write_m), .en(1'b0), .clr(1'b0));
-    register #(.WIDTH(2)) result_src_ex_m (.rst(reset), .clk(clock), .input(result_src_ex), .out(result_src_m), .en(1'b0), .clr(1'b0));
-    register #(.WIDTH(1)) mem_write_ex_m (.rst(reset), .clk(clock), .input(mem_write_ex), .out(read_write_ram_en), .en(1'b0), .clr(1'b0));
-    register alu_result_ex_m (.rst(reset), .clk(clock), .input(alu_result), .out(ram_address), .en(1'b0), .clr(1'b0));
-    register read_data_2_ex_m (.rst(reset), .clk(clock), .input(read_data_2_ex_mux), .out(ram_w_data), .en(1'b0), .clr(1'b0));
-    register #(.WIDTH(5)) rd_ex_m (.rst(reset), .clk(clock), .input(rd_ex), .out(rd_m), .en(1'b0), .clr(1'b0));
-    register pc_plus4_ex_m (.rst(reset), .clk(clock), .input(pc_plus4_ex), .out(pc_plus4_m), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(1)) reg_write_ex_m (.rst(reset), .clk(clock), .in(reg_write_ex), .out(reg_write_m), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(2)) result_src_ex_m (.rst(reset), .clk(clock), .in(result_src_ex), .out(result_src_m), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(1)) mem_write_ex_m (.rst(reset), .clk(clock), .in(mem_write_ex), .out(read_write_ram_en), .en(1'b0), .clr(1'b0));
+    register alu_result_ex_m (.rst(reset), .clk(clock), .in(alu_result), .out(ram_address), .en(1'b0), .clr(1'b0));
+    register read_data_2_ex_m (.rst(reset), .clk(clock), .in(read_data_2_ex_mux), .out(ram_w_data), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(5)) rd_ex_m (.rst(reset), .clk(clock), .in(rd_ex), .out(rd_m), .en(1'b0), .clr(1'b0));
+    register pc_plus4_ex_m (.rst(reset), .clk(clock), .in(pc_plus4_ex), .out(pc_plus4_m), .en(1'b0), .clr(1'b0));
 
     // Memory stage
     // We will use external data memory
 
     // MEM/WB Registers
-    register #(.WIDTH(1)) reg_write_m_wb (.rst(reset), .clk(clock), .input(reg_write_m), .out(reg_write_wb), .en(1'b0), .clr(1'b0));
-    register #(.WIDTH(2)) result_src_m_wb (.rst(reset), .clk(clock), .input(result_src_m), .out(result_src_wb), .en(1'b0), .clr(1'b0));
-    register alu_result_m_wb (.rst(reset), .clk(clock), .input(ram_address), .out(alu_result_wb), .en(1'b0), .clr(1'b0));
-    register read_data_m_wb (.rst(reset), .clk(clock), .input(ram_r_data), .out(read_data_wb), .en(1'b0), .clr(1'b0));
-    register #(.WIDTH(5)) rd_m_wb (.rst(reset), .clk(clock), .input(rd_m), .out(rd_wb), .en(1'b0), .clr(1'b0));
-    register pc_plus4_m_wb (.rst(reset), .clk(clock), .input(pc_plus4_m), .out(pc_plus4_wb), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(1)) reg_write_m_wb (.rst(reset), .clk(clock), .in(reg_write_m), .out(reg_write_wb), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(2)) result_src_m_wb (.rst(reset), .clk(clock), .in(result_src_m), .out(result_src_wb), .en(1'b0), .clr(1'b0));
+    register alu_result_m_wb (.rst(reset), .clk(clock), .in(ram_address), .out(alu_result_wb), .en(1'b0), .clr(1'b0));
+    register read_data_m_wb (.rst(reset), .clk(clock), .in(ram_r_data), .out(read_data_wb), .en(1'b0), .clr(1'b0));
+    register #(.WIDTH(5)) rd_m_wb (.rst(reset), .clk(clock), .in(rd_m), .out(rd_wb), .en(1'b0), .clr(1'b0));
+    register pc_plus4_m_wb (.rst(reset), .clk(clock), .in(pc_plus4_m), .out(pc_plus4_wb), .en(1'b0), .clr(1'b0));
 
     // WriteBack stage (WB)
     mux_3 mux_3 (
