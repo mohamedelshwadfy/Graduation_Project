@@ -1,31 +1,30 @@
-// Module: uart
-// Description: Universal Asynchronous Receiver Transmitter (UART) with FIFO buffer
-// Parameters: DBIT - Number of data bits; SB_TICK - Number of ticks for 1 stop bit; FIFO_W - Address bits of FIFO
-// Inputs: clk - Clock signal; reset - Reset signal; rd_uart - Read enable for UART; wr_uart - Write enable for UART; rx - Receive data
-//         w_data - Write data; dvsr - Divider value
-// Outputs: tx_full - Transmitter full flag; rx_empty - Receiver empty flag; tx - Transmit data; r_data - Read data
-
+/* Module: uart
+   Description: Universal Asynchronous Receiver Transmitter (UART) with FIFO buffer
+   Inputs: clk - Clock signal; reset - Reset signal; rd_uart - Read enable for UART; wr_uart - Write enable for UART; rx - Receive data
+           w_data - Write data; dvsr - Divider value
+   Outputs: tx_full - Transmitter full flag; rx_empty - Receiver empty flag; tx - Transmit data; r_data - Read data
+*/
 module uart #(
     parameter DBIT = 8,     // Number of data bits
     parameter SB_TICK = 16, // Number of ticks for 1 stop bit
     parameter FIFO_W = 2    // Address bits of FIFO
 ) (
-    input wire clk,
-    input wire reset,
-    input wire rd_uart,
-    input wire wr_uart,
-    input wire rx,
-    input wire [7:0] w_data,
-    input wire [10:0] dvsr,
-    output wire tx_full,
-    output wire rx_empty,
-    output wire tx,
-    output wire [7:0] r_data
+    input         clk,
+    input         reset,
+    input         rd_uart,
+    input         wr_uart,
+    input         rx,
+    input  [7:0]  w_data,
+    input  [10:0] dvsr,
+    output        tx_full,
+    output        rx_empty,
+    output        tx,
+    output [7:0]  r_data
 );
 
     // Signal declaration
-    wire tick, rx_done_tick, tx_done_tick;
-    wire tx_empty, tx_fifo_not_empty;
+    wire       tick, rx_done_tick, tx_done_tick;
+    wire       tx_empty, tx_fifo_not_empty;
     wire [7:0] tx_fifo_out, rx_data_out;
 
     // Instantiate baud generator
