@@ -227,15 +227,15 @@ module data_path #(parameter WIDTH = 32) (
         .rd_w(rd_wb),
         .rs1_e(rs1e),
         .rs2_e(rs2e),
-        .rs_1d(instruction_id[19:15]),
-        .rs_2d(instruction_id[24:20]),
-        .rde(rd_ex),
+        .rs1_d(instruction_id[19:15]),
+        .rs2_d(instruction_id[24:20]),
+        .rd_e(rd_ex),
         .stall_f(stall_f),
         .stall_d(stall_d),
         .flush_e(flush_e),
         .flush_d(flush_d),
-        .forward_ae(forward_ae),
-        .forward_be(forward_be)
+        .forward_a_e(forward_ae),
+        .forward_b_e(forward_be)
     );
 
 endmodule
