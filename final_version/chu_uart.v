@@ -1,31 +1,31 @@
-// Module: chu_uart
-// Description: UART with FIFO buffer
-// Parameters: FIFO_DEPTH_BIT - Number of address bits in FIFO
-// Inputs: clk - Clock signal; reset - Reset signal; cs - Chip select; read - Read enable; write - Write enable; addr - Address; wr_data - Write data
-//         rx - Receive data
-// Outputs: rd_data - Read data; tx - Transmit data
-
+/* Module: chu_uart
+   Description: UART with FIFO buffer
+   Parameters: FIFO_DEPTH_BIT - Number of address bits in FIFO
+   Inputs: clk - Clock signal; reset - Reset signal; cs - Chip select; read - Read enable; write - Write enable; addr - Address; wr_data - Write data
+           rx - Receive data
+   Outputs: rd_data - Read data; tx - Transmit data
+*/
 module chu_uart #(
     parameter FIFO_DEPTH_BIT = 8 // Number of address bits in FIFO
 ) (
-    input wire clk,
-    input wire reset,
+    input         clk,
+    input         reset,
     // Slot interface
-    input wire cs,
-    input wire read,
-    input wire write,
-    input wire [1:0] addr,
-    input wire [7:0] wr_data,
-    output wire [31:0] rd_data,
-    output wire tx,
-    input wire rx
+    input         cs,
+    input         read,
+    input         write,
+    input  [1:0]  addr,
+    input  [7:0]  wr_data,
+    output [31:0] rd_data,
+    output        tx,
+    input         rx
 );
 
     // Signal declaration
-    wire wr_uart, rd_uart, wr_dvsr;
-    wire tx_full, rx_empty;
-    reg [10:0] dvsr_reg;
-    wire [7:0] r_data;
+    wire        wr_uart, rd_uart, wr_dvsr;
+    wire        tx_full, rx_empty;
+    reg  [10:0] dvsr_reg;
+    wire [7:0]  r_data;
 
     // Instantiate UART
     uart #(
