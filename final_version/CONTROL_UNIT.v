@@ -5,19 +5,18 @@
             ImmSrc - Immediate source select; ResultSrc - Result source select; Branch - Branch signal; Jump - Jump signal
             ALUControl - ALU control signals
 */
-module ControlUnit (
-    input  [6:0]  op,
-    input         funct7,
-    input  [2:0]  funct3,
-    output        reg_write,
-    output        alu_src,
-    output        mem_write,
-    output [1:0]  imm_src,
-    output [1:0]  result_src,
-    output [2:0]  alu_control,
-    output        branch,
-    output        jump
-);
+module ControlUnit ( op , funct7 , funct3 , reg_write , alu_src , mem_write , imm_src , result_src , alu_control , branch , jump );
+   input  [6:0]  op;
+    input         funct7;
+    input  [2:0]  funct3;
+    output        reg_write;
+    output        alu_src;
+    output        mem_write;
+    output [1:0]  imm_src;
+    output [1:0]  result_src;
+    output [2:0]  alu_control;
+    output        branch;
+    output        jump;
 
     wire   [1:0]  alu_op;
 
