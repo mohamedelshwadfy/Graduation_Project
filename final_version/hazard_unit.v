@@ -1,12 +1,12 @@
-// Module: hazard_unit
-// Description: Hazard detection unit
-// Inputs: rst - Reset signal; reg_write_m - Register write enable from MEM stage; reg_write_w - Register write enable from WB stage
-//         result_src_e0 - Result source signal from EX stage; pc_src_e - PC source signal from EX stage; rd_m - Destination register from MEM stage
-//         rd_w - Destination register from WB stage; rs1_e - Source register 1 from EX stage; rs2_e - Source register 2 from EX stage
-//         rs1_d - Source register 1 from ID stage; rs2_d - Source register 2 from ID stage; rd_e - Destination register from EX stage
-// Outputs: stall_f - Stall signal for IF stage; stall_d - Stall signal for ID stage; flush_e - Flush signal for EX stage
-//          flush_d - Flush signal for ID stage; forward_a_e - Forward signal for ALU source A; forward_b_e - Forward signal for ALU source B
-
+/* Module: hazard_unit
+   Description: Hazard detection unit
+   Inputs: rst - Reset signal; reg_write_m - Register write enable from MEM stage; reg_write_w - Register write enable from WB stage
+           result_src_e0 - Result source signal from EX stage; pc_src_e - PC source signal from EX stage; rd_m - Destination register from MEM stage
+           rd_w - Destination register from WB stage; rs1_e - Source register 1 from EX stage; rs2_e - Source register 2 from EX stage
+           rs1_d - Source register 1 from ID stage; rs2_d - Source register 2 from ID stage; rd_e - Destination register from EX stage
+   Outputs: stall_f - Stall signal for IF stage; stall_d - Stall signal for ID stage; flush_e - Flush signal for EX stage
+            flush_d - Flush signal for ID stage; forward_a_e - Forward signal for ALU source A; forward_b_e - Forward signal for ALU source B
+*/
 module hazard_unit (
     input             rst,
     input             reg_write_m,
