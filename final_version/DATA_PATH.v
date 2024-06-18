@@ -97,7 +97,7 @@ module data_path #(parameter WIDTH = 32) (
     adder adder0 (
         .a(rom_address),
         .b(32'h00000004),
-        .output(pc_plus4)
+        .y(pc_plus4)
     );
 
     // IF/ID Registers
