@@ -1,9 +1,9 @@
-// Module: main_control_unit
-// Description: Generates control signals based on instruction opcode
-// Inputs: op - 7-bit operation code
-// Outputs: reg_write, alu_src, mem_write, branch, jump - control signals
-//          imm_src, alu_op, result_src - 2-bit control lines
-
+/* Module: main_control_unit
+   Description: Generates control signals based on instruction opcode
+   Inputs: op - 7-bit operation code
+   Outputs: reg_write, alu_src, mem_write, branch, jump - control signals
+            imm_src, alu_op, result_src - 2-bit control lines
+*/
 module main_control_unit (
     input  [6:0] op,
     output       reg_write,
