@@ -1,17 +1,17 @@
-// Module: baud_gen
-// Description: Baud rate generator
-// Inputs: clk - Clock signal; reset - Reset signal; dvsr - Divider value
-// Outputs: tick - Tick output signal
-
+/* Module: baud_gen
+   Description: Baud rate generator
+   Inputs: clk - Clock signal; reset - Reset signal; dvsr - Divider value
+   Outputs: tick - Tick output signal
+*/
 module baud_gen (
-    input wire clk,
-    input wire reset,
-    input wire [10:0] dvsr,
-    output wire tick
+    input        clk,
+    input        reset,
+    input [10:0] dvsr,
+    output       tick
 );
 
     // Signal declaration
-    reg [10:0] r_reg;
+    reg  [10:0] r_reg;
     wire [10:0] r_next;
 
     // Register
