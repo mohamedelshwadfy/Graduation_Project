@@ -5,7 +5,7 @@
          write_data - data to write
    Outputs: read_data_1 - data read from address 1; read_data_2 - data read from address 2
 */
-module register_file #(parameter WIDTH = 32, parameter ADD_WIDTH = 5, parameter NU_REG = 32) (
+module register_file #(parameter WIDTH = 32, ADD_WIDTH = 5) (
     input                      clk,
     input                      reset,
     input                      write_enable,
@@ -17,12 +17,11 @@ module register_file #(parameter WIDTH = 32, parameter ADD_WIDTH = 5, parameter 
     output reg [WIDTH-1:0]     read_data_2
 );
 
-    reg [WIDTH-1:0] rf[NU_REG-1:0]; // 32 registers, 32-bit wide each
+   reg [WIDTH-1:0] rf[0 : 2**ADD_WIDTH - 1]; // 32 registers, 32-bit wide each
     integer i;
 
     // Synchronous write
     always @(posedge clk or negedge reset) begin
-        rf[0] <= 32'h00000000;
         if (~reset) begin
             for (i = 0; i < 32; i = i + 1)
                 rf[i] <= 32'h00000000;
