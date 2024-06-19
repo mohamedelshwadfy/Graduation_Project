@@ -30,13 +30,13 @@ module uart_rx #(
     reg [7:0] b_reg, b_next;
 
     // FSMD state & data registers
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+   always @(posedge clk , negedge reset) begin
+      if (~reset) begin
             state_reg <= IDLE;
             s_reg <= 4'b0;
             n_reg <= 3'b0;
             b_reg <= 8'b0;
-        end else begin
+      end else begin
             state_reg <= state_next;
             s_reg <= s_next;
             n_reg <= n_next;
