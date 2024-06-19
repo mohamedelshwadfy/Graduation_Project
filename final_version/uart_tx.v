@@ -32,14 +32,14 @@ module uart_tx #(
     reg       tx_reg, tx_next;
 
     // FSMD state & data registers
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+   always @(posedge clk , negedge reset) begin
+      if (~reset) begin
             state_reg <= IDLE;
             s_reg <= 0;
             n_reg <= 0;
             b_reg <= 0;
             tx_reg <= 1'b1;
-        end else begin
+      end else begin
             state_reg <= state_next;
             s_reg <= s_next;
             n_reg <= n_next;
