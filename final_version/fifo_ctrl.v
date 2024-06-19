@@ -23,13 +23,13 @@ module fifo_ctrl #(
     reg                  full_logic, empty_logic, full_next, empty_next;
 
     // Registers for status and read/write pointers
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+   always @(posedge clk ,negedge reset) begin
+      if (~reset) begin
             w_ptr_logic <= 0;
             r_ptr_logic <= 0;
             full_logic <= 1'b0;
             empty_logic <= 1'b1;
-        end else begin
+      end else begin
             w_ptr_logic <= w_ptr_next;
             r_ptr_logic <= r_ptr_next;
             full_logic <= full_next;
