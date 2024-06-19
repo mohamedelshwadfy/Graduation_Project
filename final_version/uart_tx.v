@@ -49,7 +49,7 @@ module uart_tx #(
     end
 
     // FSMD next-state logic & functional units
-    always @* begin
+   always @(*) begin
         state_next = state_reg;
         tx_done_tick = 1'b0;
         s_next = s_reg;
