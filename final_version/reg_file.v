@@ -21,11 +21,11 @@ module reg_file #(
 
     // Write operation
     integer i;
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+   always @(posedge clk , negedge reset) begin
+      if (~reset) begin
             for (i = 0; i < (2**ADDR_WIDTH); i = i + 1)
                 array_reg[i] <= 8'h00;
-        end else if (wr_en) begin
+      end else if (wr_en) begin
             array_reg[w_addr] <= w_data;
         end
     end
