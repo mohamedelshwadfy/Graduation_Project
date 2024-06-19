@@ -15,10 +15,10 @@ module baud_gen (
     wire [10:0] r_next;
 
     // Register
-    always @(posedge clk or posedge reset) begin
-        if (reset)
+   always @(posedge clk , negedge reset) begin
+      if (~reset)
             r_reg <= 11'b00000000000;
-        else
+      else
             r_reg <= r_next;
     end
 
