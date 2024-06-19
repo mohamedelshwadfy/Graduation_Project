@@ -47,10 +47,10 @@ module chu_uart #(
     );
 
     // DSBR register
-    always @(posedge clk or posedge reset) begin
-        if (reset)
+   always @(posedge clk , negedge reset) begin
+      if (~reset)
             dvsr_reg <= 0;
-        else if (wr_dvsr)
+      else if (wr_dvsr)
             dvsr_reg <= wr_data[10:0];
     end
 
