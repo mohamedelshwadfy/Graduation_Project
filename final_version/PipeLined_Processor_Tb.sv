@@ -1,5 +1,5 @@
 `timescale 1ns/100ps
-module PipeLined_Processor_TB ();
+module pipeLined_processor_tb ();
     
     reg clk=1'b1,rst,serial_in;
     wire serial_out;
