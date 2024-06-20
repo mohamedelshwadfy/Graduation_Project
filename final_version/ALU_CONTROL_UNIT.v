@@ -1,9 +1,9 @@
-/* Module: ALUControlUnit
+/* Module: alu_control_unit
    Description: Generates ALU control lines based on instruction
    Inputs: aluOp - 2-bit operation from main control unit; funct3 - 3-bit function code; funct7 - 1-bit function code; op - 1-bit operation code
    Outputs: aluControl - 3-bit control line to ALU unit 
 */
-module ALUControlUnit ( 
+module alu_control_unit ( 
    input  [1:0]  alu_op,
    input  [2:0]  funct3,
    input         funct7,
