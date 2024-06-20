@@ -21,7 +21,7 @@ module control_unit (
     wire   [1:0]  alu_op;
 
     //instantiation of Main Control Unit module
-    MainControlUnit mainControl (
+    main_control_unit mainControl (
         .op(op),
         .reg_write(Reg_write),
         .imm_src(imm_src),
