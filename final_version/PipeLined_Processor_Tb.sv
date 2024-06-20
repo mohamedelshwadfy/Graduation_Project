@@ -4,8 +4,8 @@ module pipeLined_processor_tb ();
     reg clk=1'b1,rst,serial_in;
     wire serial_out;
     mcu_top Single_Cycle_Top(
-                                .CLOCK(clk),
-                                .RESET(rst),
+                                .clock(clk),
+                                .reset(rst),
 				.serial_in(serial_in),
 				.serial_out(serial_out)
     );
