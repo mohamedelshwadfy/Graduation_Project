@@ -1,10 +1,10 @@
-/* Module: CarryLookAheadAdder
+/* Module: carry_look_ahead_adder
    Description: 32-bit Carry Look-Ahead Adder
    Parameters: WIDTH - Data width, default 32-bit
    Inputs: a, b - 32-bit input lines; cin - Carry input; mode - Mode (used for XOR with b)
    Outputs: sum - 32-bit sum; cout - Carry output
 */
-module CarryLookAheadAdder #(parameter WIDTH = 32) (
+module carry_look_ahead_adder #(parameter WIDTH = 32) (
     input  [WIDTH-1:0]  a,
     input  [WIDTH-1:0]  b,
     input               cin,
