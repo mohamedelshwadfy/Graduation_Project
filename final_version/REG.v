@@ -14,14 +14,16 @@ module register #(parameter WIDTH = 32) (
 
     always @(posedge clk or negedge rst) begin
         if (~rst) begin
-            out <= {WIDTH{1'b0}};
-        end else begin
-            if (clr) begin
-                out <= {WIDTH{1'b0}};
-            } else if (~en) begin
-                out <= input;
-            end
-        end
-    end
+          if( rst == 1'b0 )	
+		out <=  0;
+
+        else if ( clr == 1'b1 )	
+		out <=  0;
+	
+	else
+           if (~en)
+		out<= in; 
+
+end
 
 endmodule
