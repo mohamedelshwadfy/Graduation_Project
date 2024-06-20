@@ -146,7 +146,7 @@ module data_path #(parameter WIDTH = 32) (
     register #(.WIDTH(5)) instruction_id2 (.rst(reset), .clk(clock), .in(instruction_id[24:20]), .out(rs2e), .en(1'b0), .clr(flush_e));
 
     // Instruction Execute stage (EX)
-    mux_3 mux6 (
+    mux3 mux6 (
         .select(forward_ae),
         .a(read_data_1_ex),
         .b(result),
@@ -154,7 +154,7 @@ module data_path #(parameter WIDTH = 32) (
         .out(src_a_ex)
     );
 
-    mux_3 mux7 (
+    mux3 mux7 (
         .select(forward_be),
         .a(read_data_2_ex),
         .b(result),
@@ -208,7 +208,7 @@ module data_path #(parameter WIDTH = 32) (
     register pc_plus4_m_wb (.rst(reset), .clk(clock), .in(pc_plus4_m), .out(pc_plus4_wb), .en(1'b0), .clr(1'b0));
 
     // WriteBack stage (WB)
-    mux_3 mux_3 (
+    mux3 mux_3 (
         .select(result_src_wb),
         .a(alu_result_wb),
         .b(read_data_wb),
