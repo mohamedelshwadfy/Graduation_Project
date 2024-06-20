@@ -49,13 +49,13 @@ module mcu_top #(
     assign cs = uart_wen | uart_ren;
 
     // Instantiate ROM (Instruction Memory)
-    instruction_memory  (
+    instruction_memory  instruction_memory (
         .address(rom_address),
         .instruction(rom_data)
     );
 
     // Instantiate RAM (Data Memory)
-    data_memory  (
+    data_memory data_memory (
         .clk(clock),
         .address(ram_address[15:0]),
         .write_read(ram_w_r_en),
