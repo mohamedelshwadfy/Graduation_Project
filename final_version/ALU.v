@@ -5,7 +5,7 @@
    Outputs: aluResult - 32-bit result; carry - Carry flag; overflow - Overflow flag; zero - Zero flag
 */   
 
-module ALU #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) ( 
+module alu #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) ( 
     input  [CTRL_WIDTH-1:0]  alu_control,
     input  [WIDTH-1:0]       a,
     input  [WIDTH-1:0]       b,
