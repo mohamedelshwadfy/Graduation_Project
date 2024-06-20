@@ -9,8 +9,8 @@ module ALU #(parameter WIDTH = 32, parameter CTRL_WIDTH = 3) (
     input  [CTRL_WIDTH-1:0]  alu_control,
     input  [WIDTH-1:0]       a,
     input  [WIDTH-1:0]       b,
-    output [WIDTH-1:0]       alu_result,
-    output                   carry,
+    output reg [WIDTH-1:0]   alu_result,
+    output reg               carry,
     output                   over_flow,
     output                   zero
 );
