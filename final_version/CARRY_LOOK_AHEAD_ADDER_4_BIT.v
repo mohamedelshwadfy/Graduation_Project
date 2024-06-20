@@ -1,9 +1,9 @@
-/* Module: CarryLookAhead4Bit
+/* Module: carry_look_ahead_adder_4bit
    Description: 4-bit Carry Look-Ahead Adder
    Inputs: a, b - 4-bit input lines; cin - Carry input
    Outputs: sum - 4-bit sum; cout - Carry output
 */
-module CarryLookAhead4Bit ( 
+module carry_look_ahead_adder_4bit ( 
     input  [3:0]  a,
     input  [3:0]  b,
     input         cin,
