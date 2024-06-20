@@ -1,5 +1,5 @@
 /*
-	module: DATA_MEMORY
+	module: data_memory
         Description:  it is a RAM . it have control signal to allowing write or read from it 
 			   the write opearation is synchronized with the clock and the read
 		           opearation is combinationally logic 
@@ -7,7 +7,7 @@
 		 WRITE_READ : control signal to read or write enable , WRITE_DATA : 32-bit data pass 
 	outputs: READ_DATA : 32-bit data pass
 */
-module DATA_MEMORY #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
+module data_memory #(parameter WIDTH = 32 , MEM_DEPTH = 256 )(
 input                     clk,
 input                     write_read,
 input  [ WIDTH - 1 : 0 ]  address,
