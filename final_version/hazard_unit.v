@@ -31,12 +31,12 @@ module hazard_unit (
     wire lw_stall;
 
     assign forward_a_e = (rst == 1'b0) ? 2'b00 :
-                         ((reg_write_m == 1'b1) && (rd_m != 5'h00) && (rd_m == rs1_e)) ? 2'b10 :
-                         ((reg_write_w == 1'b1) && (rd_w != 5'h00) && (rd_w == rs1_e)) ? 2'b01 : 2'b00;
+       ((reg_write_m == 1'b1) && (rd_m != 5'h00) && (rd_m == rs1_e)) ? 2'b10 :// forward from memory stage.
+       ((reg_write_w == 1'b1) && (rd_w != 5'h00) && (rd_w == rs1_e)) ? 2'b01 : 2'b00; //forward from write back stage.
 
     assign forward_b_e = (rst == 1'b0) ? 2'b00 :
-                         ((reg_write_m == 1'b1) && (rd_m != 5'h00) && (rd_m == rs2_e)) ? 2'b10 :
-                         ((reg_write_w == 1'b1) && (rd_w != 5'h00) && (rd_w == rs2_e)) ? 2'b01 : 2'b00;
+       ((reg_write_m == 1'b1) && (rd_m != 5'h00) && (rd_m == rs2_e)) ? 2'b10 : // forward from memory stage.
+       ((reg_write_w == 1'b1) && (rd_w != 5'h00) && (rd_w == rs2_e)) ? 2'b01 : 2'b00; //forward from write back stage.
 
     assign lw_stall = (result_src_e0 && ((rs1_d == rd_e) || (rs2_d == rd_e)));
     assign stall_f = lw_stall;
