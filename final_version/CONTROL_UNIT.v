@@ -1,11 +1,11 @@
-/* Module: ControlUnit
+/* Module: control_unit
    Description: Main control unit
    Inputs: op - 7-bit opcode; funct3 - 3-bit function code; funct7 - 1-bit function code
    Outputs: RegWrite - Register write enable; ALUSrc - ALU source select; MemWrite - Memory write enable
             ImmSrc - Immediate source select; ResultSrc - Result source select; Branch - Branch signal; Jump - Jump signal
             ALUControl - ALU control signals
 */
-module ControlUnit ( 
+module control_unit ( 
     input  [6:0]  op,
     input         funct7,
     input  [2:0]  funct3,
@@ -34,7 +34,7 @@ module ControlUnit (
     );
 
     //instantiation of ALU Control Unit module
-    ALUControlUnit aluControl (
+    alu_control_unit aluControl (
         .alu_op(alu_op),
         .funct3(funct3),
         .funct7(funct7),
